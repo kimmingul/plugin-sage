@@ -222,5 +222,13 @@ grep -q 'tag -a'                   bin/release.sh    || fail "release.sh must cr
 ! grep -q 'git push'               bin/release.sh    || fail "release.sh must NOT auto-push"
 pass "release.sh is wired correctly"
 
+echo "==> v0.5 publish script"
+[[ -x bin/publish.sh ]]                           || fail "publish.sh not executable"
+grep -q 'git archive'        bin/publish.sh       || fail "publish.sh must build ZIP via git archive"
+grep -q 'gh release'         bin/publish.sh       || fail "publish.sh must create gh release"
+grep -q '\-\-clobber'        bin/publish.sh       || fail "publish.sh must be idempotent (--clobber)"
+grep -q 'CHANGELOG.md'       bin/publish.sh       || fail "publish.sh must read CHANGELOG.md for notes"
+pass "publish.sh is wired correctly"
+
 echo
 echo "All structural checks passed."
