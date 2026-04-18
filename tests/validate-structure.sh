@@ -131,13 +131,13 @@ else
 fi
 
 echo "==> Task 14: CI workflow"
-if [[ -f "$PLUGIN_ROOT/../.github/workflows/sync-check.yml" ]]; then
-  grep -q 'sync-principles.sh' "$PLUGIN_ROOT/../.github/workflows/sync-check.yml" || fail "workflow does not invoke sync-principles.sh"
-  grep -q 'validate-structure.sh' "$PLUGIN_ROOT/../.github/workflows/sync-check.yml" || fail "workflow does not run validate-structure.sh"
-  pass "CI workflow present at umbrella repo root"
-else
-  pass "(skipped — umbrella .github/ not present; this is OK for standalone plugin-sage)"
-fi
+ci_file="$PLUGIN_ROOT/.github/workflows/ci.yml"
+[[ -f "$ci_file" ]] || fail ".github/workflows/ci.yml missing"
+grep -q 'validate-structure.sh' "$ci_file" || fail "CI workflow does not run validate-structure.sh"
+grep -q 'actions/checkout' "$ci_file"      || fail "CI workflow must checkout the repo"
+grep -q 'on:'              "$ci_file"       || fail "CI workflow missing 'on:' trigger block"
+grep -qE 'pull_request|push' "$ci_file"     || fail "CI workflow must trigger on PR or push"
+pass "CI workflow present (.github/workflows/ci.yml)"
 
 echo "==> Task 15: README and CHANGELOG"
 grep -q '^# plugin-sage$' README.md || fail "README.md heading"
