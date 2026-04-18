@@ -4,6 +4,24 @@ All notable changes to plugin-sage.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.6.0] — 2026-04-19
+
+### Added
+
+- **GitHub Actions CI.** `.github/workflows/ci.yml` runs `tests/validate-structure.sh` on every pull request to `main` and every push to `main`. Ubuntu runner, `jq` installed, no external services required. This replaces the pre-standalone umbrella CI workflow that was lost during the v0.5 topology change.
+- **CI status badge in README.** Top of README now displays build status from the `ci.yml` workflow, linking to the Actions dashboard.
+
+### Changed
+
+- **`tests/validate-structure.sh` Task 14** now actively requires `.github/workflows/ci.yml` (was an umbrella-path check that silently skipped in standalone mode).
+
+### Known limitations (carried from v0.5)
+
+- Skills are English-only.
+- `claude plugin validate` in CI is not configured — requires installing the CLI in the runner, deferred to v0.7. Task 13's graceful-skip branch handles CLI absence locally.
+- Drift check against the source doc is not configured in CI — the source doc lives outside this repo. Deferred.
+- Claude.ai marketplace registration and CONTRIBUTING.md remain deferred.
+
 ## [0.5.0] — 2026-04-18
 
 ### Added
