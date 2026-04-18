@@ -1,5 +1,7 @@
 # plugin-sage
 
+[![CI](https://github.com/kimmingul/plugin-sage/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kimmingul/plugin-sage/actions/workflows/ci.yml)
+
 A wise advisor for Claude Code plugin authors.
 
 ## What it does
