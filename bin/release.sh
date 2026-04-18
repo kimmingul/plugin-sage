@@ -22,7 +22,7 @@
 set -euo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-REPO_ROOT="$(cd "$PLUGIN_ROOT/.." && pwd)"
+REPO_ROOT="$PLUGIN_ROOT"
 cd "$PLUGIN_ROOT"
 
 die() { printf 'release: ERROR: %s\n' "$*" >&2; exit 1; }
