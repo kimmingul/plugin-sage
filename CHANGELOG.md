@@ -4,6 +4,29 @@ All notable changes to plugin-sage.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.5.0] — 2026-04-18
+
+### Added
+
+- **`bin/publish.sh`.** Publishes an existing tag to GitHub: pushes the tag (idempotent), generates a source ZIP via `git archive` at `/tmp/plugin-sage-v<version>.zip` with `plugin-sage/` as archive root, and creates a GitHub Release attaching the ZIP. Uses the `## [<version>]` CHANGELOG section as release notes. Re-running on an already-published release re-uploads the ZIP (`--clobber`) without duplicating the release.
+- **`.gitignore`.** Excludes `.DS_Store`, `*.log`, `.env`, `.env.local` — prevents macOS Finder metadata from leaking into distribution ZIPs.
+
+### Fixed
+
+- **`bin/release.sh`** now uses `PLUGIN_ROOT` as the git repo root (was `PLUGIN_ROOT/..`, which assumed the old umbrella structure). Standalone repo is the supported topology going forward.
+- **`tests/validate-structure.sh` Task 6 idempotency check** now runs at the plugin-sage git root. Previously it silently took the "skipped — not in a git repo" branch in standalone mode, so idempotency was not actually verified on recent releases.
+
+### Retroactive
+
+- GitHub Release for v0.4.0 was created with a source ZIP attached.
+
+### Known limitations (carried from v0.4)
+
+- Skills are English-only.
+- LLM-driven self principle-review remains manual at release; deterministic subset is automated in the test harness.
+- GitHub Actions CI for plugin-sage is not configured (lost with the umbrella transition). Local `tests/validate-structure.sh` is the current gate.
+- Claude.ai marketplace registration and CONTRIBUTING.md remain deferred.
+
 ## [0.4.0] — 2026-04-18
 
 ### Added
