@@ -43,11 +43,11 @@ if git -C "$REPO_ROOT" rev-parse "$TAG" >/dev/null 2>&1; then
 fi
 
 # ---- Working-tree clean --------------------------------------------------
-if ! git -C "$REPO_ROOT" diff-index --quiet HEAD -- plugin-sage/; then
-  die "plugin-sage/ has uncommitted changes; commit or stash before releasing"
+if ! git -C "$REPO_ROOT" diff-index --quiet HEAD --; then
+  die "working tree has uncommitted changes; commit or stash before releasing"
 fi
-untracked="$(git -C "$REPO_ROOT" ls-files --others --exclude-standard -- plugin-sage/)"
-[[ -z "$untracked" ]] || die "plugin-sage/ has untracked files:\n$untracked"
+untracked="$(git -C "$REPO_ROOT" ls-files --others --exclude-standard)"
+[[ -z "$untracked" ]] || die "working tree has untracked files:\n$untracked"
 
 # ---- CHANGELOG contains the version entry --------------------------------
 changelog_entry="$(awk -v v="## [$VERSION]" '
@@ -73,7 +73,7 @@ fi
 
 log "checking sync-principles idempotency"
 bash bin/sync-principles.sh >/dev/null
-if ! git -C "$REPO_ROOT" diff --quiet -- plugin-sage/skills/; then
+if ! git -C "$REPO_ROOT" diff --quiet -- skills/; then
   die "sync-principles produced drift; fix and recommit before releasing"
 fi
 
@@ -93,7 +93,7 @@ if [[ -n "$first_line" ]]; then
   commit_msg="release: v$VERSION — $first_line"
 fi
 
-git -C "$REPO_ROOT" add plugin-sage/"$manifest"
+git -C "$REPO_ROOT" add "$manifest"
 git -C "$REPO_ROOT" commit -m "$commit_msg"
 
 git -C "$REPO_ROOT" tag -a "$TAG" -m "plugin-sage $TAG
