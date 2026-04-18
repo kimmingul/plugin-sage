@@ -61,10 +61,10 @@ checkcount=$(grep -c '^- \[ \]' skills/marketplace-publishing/checklists/pre-upl
 pass "marketplace-publishing skill generated correctly"
 
 echo "==> Task 6: sync idempotency"
-# Re-run sync and check for drift (requires a git repo)
-if git -C "$PLUGIN_ROOT/.." rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+# Re-run sync and check for drift (requires a git repo at plugin-sage root)
+if git -C "$PLUGIN_ROOT" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   bash "$PLUGIN_ROOT/bin/sync-principles.sh" >/dev/null
-  if ! git -C "$PLUGIN_ROOT/.." diff --quiet -- plugin-sage/skills/; then
+  if ! git -C "$PLUGIN_ROOT" diff --quiet -- skills/; then
     fail "sync-principles.sh is not idempotent; second run produced changes"
   fi
   pass "sync is idempotent"
