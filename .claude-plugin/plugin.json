@@ -1,0 +1,13 @@
+{
+  "name": "plugin-sage",
+  "version": "0.4.0",
+  "description": "A wise advisor for Claude Code plugin authors. Reviews plugins against 10 harness principles, validates marketplace uploads, and helps classify components (Skill vs Agent vs Hook vs Plugin).",
+  "author": {
+    "name": "Min-Gul Kim",
+    "email": "mgkim@nanumspace.com"
+  },
+  "homepage": "https://github.com/kimmingul/plugin-sage",
+  "repository": "https://github.com/kimmingul/plugin-sage",
+  "license": "MIT",
+  "keywords": ["plugin-development", "harness", "review", "marketplace"]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "nanumspace-marketplace",
+  "owner": {
+    "name": "Min-Gul Kim",
+    "email": "mgkim@nanumspace.com",
+    "url": "https://github.com/kimmingul/plugin-sage"
+  },
+  "metadata": {
+    "description": "Home of the plugin-sage plugin."
+  },
+  "plugins": [
+    {
+      "name": "plugin-sage",
+      "source": "./",
+      "description": "A wise advisor for Claude Code plugin authors.",
+      "author": { "name": "Min-Gul Kim", "email": "mgkim@nanumspace.com" },
+      "tags": ["plugin-dev", "review", "marketplace"]
+    }
+  ]
+}

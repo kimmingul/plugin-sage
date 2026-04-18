@@ -1,0 +1,28 @@
+{
+  "description": "Auto-validate plugin manifests after edits (PostToolUse) and log session loads (SessionStart). Both hooks always exit 0.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/bin/log-session.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/bin/post-edit-validate.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
